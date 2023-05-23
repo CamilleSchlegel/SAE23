@@ -1,0 +1,14 @@
+h1 { color: blue;
+     background-color: yellow;
+}
+#header{
+    display: flex;
+    justify-content: center;
+}
+#logout{
+    background-color: red;
+    display: flex;
+}
+#deconnexionSpan{
+    justify-content: center;
+}

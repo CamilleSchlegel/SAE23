@@ -1,11 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style2.css">
 </head>
 <body>
     
@@ -14,12 +12,14 @@
     <?php
     if (isset($_SESSION['username'])): 
        ?>
-    
+    <div id="header">
       <div>
         <h1>Home</h1>
     </div>
-    <div> <a href="logout.php?logout=true"><span>Déconnexion</span> </a>
+    <div id="logout"> <a href="logout.php?logout=true"><span id="deconnexionSpan">Déconnexion</span> </a>
   </div>
+    </div>
+  <div><p>CC</p></div>
     <div>
     <form action='' method='get'> Recherche: <input type='text' name='searchBar'/> <input type='submit' value='Rechercher'/> </form>
     </div>
@@ -49,10 +49,10 @@
     
     if (isset($_GET['searchBar'])){
         $get=$_GET['searchBar'];
-        $equipe="SELECT * FROM SAE23 where Prénom like '%$get%'";
-        
+        $equipe="SELECT * FROM commandes";
+
     } else {
-        $equipe="SELECT * FROM SAE23";   
+        $equipe="SELECT * FROM commandes c join clients cli on cli.ID= c.IDclient";   
     }
     try {
       $statement=$pdo->query($equipe);

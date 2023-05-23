@@ -1,0 +1,35 @@
+#main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+body{
+    height: 100%;
+    display: flex;
+}
+#formulaire{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+}
+.formulaireBlock{
+    margin:20px;
+}
+#left{
+    width: 50%;
+    margin: auto;
+    display: flex;
+}
+#left{
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20%;
+}
+#right{
+    object-fit: cover;
+    width: 50%;
+    overflow: hidden;
+}
