@@ -7,14 +7,18 @@
 </head>
 <body>
     <div id="left">
+    <div id="DivTitre">
+    <h1>Site de colis</h1>
+</div>
+<hr>
             <div>
-            <h1>Authentification</h1>
+            <h2>Bienvenue</h2>
         </div>
         <div id="formulaire">
             <form action="verification.php" method="post" name="login">
-                <div class="formulaireBlock"><input type="email" name="username" placeholder="Adresse e-mail"></div>
-                <div class="formulaireBlock"><input type="password" name="password" placeholder="Mot de passe"></div>
-                <div class="formulaireBlock"><button type="submit" value="Connexion" name="submit">Connexion</button></div>
+                <div class="formulaireBlock"><p>Email</p><input type="email" name="username"></div>
+                <div class="formulaireBlock"><p>Mot de passe</p><input type="password" name="password" ></div>
+                <div class="formulaireBlock"><button type="submit" value="Connexion" name="submit">Se connecter</button></div>
             </form>
 </div>
             <?php 

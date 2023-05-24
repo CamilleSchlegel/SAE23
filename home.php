@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
     
@@ -13,13 +13,13 @@
     if (isset($_SESSION['username'])): 
        ?>
     <div id="header">
-      <div>
-        <h1>Home</h1>
+      <div id="titre">
+        <h1>Site de colis</h1>
     </div>
     <div id="logout"> <a href="logout.php?logout=true"><span id="deconnexionSpan">Déconnexion</span> </a>
   </div>
     </div>
-  <div><p>CC</p></div>
+    <div id="body">
     <div>
     <form action='' method='get'> Recherche: <input type='text' name='searchBar'/> <input type='submit' value='Rechercher'/> </form>
     </div>
@@ -67,5 +67,6 @@
   <?php else: header ("Location: login.php");
   endif;?>
  
+</div>
 </body>
 </html>
