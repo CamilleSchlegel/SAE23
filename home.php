@@ -21,7 +21,7 @@
     </div>
     <div id="body">
     <div>
-    <form action='' method='get'> Recherche: <input type='text' name='searchBar'/> <input type='submit' value='Rechercher'/> </form>
+    <form action='' method='post'> Recherche: <input type='text' name='searchBar'/> <input type='submit' value='Rechercher'/> </form>
     </div>
     <?php
      function afficheDataTable($data) {
@@ -45,14 +45,14 @@
         }
       }
     
-    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
+    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
     
-    if (isset($_GET['searchBar'])){
-        $get=$_GET['searchBar'];
-        $equipe="SELECT * FROM commandes";
+    if (isset($_POST['searchBar'])){
+        $get=$_POST['searchBar'];
+        $equipe="SELECT idcommande as 'Numéro Commande', date_commande as 'Date Commande', date_livraison as 'Date Livraison', status, nom, prenom, adresse FROM commandes c join client cli on cli.idclient = c.IDclient where idcommande =".$_POST['searchBar'];
 
     } else {
-        $equipe="SELECT * FROM commandes c join clients cli on cli.ID= c.IDclient";   
+        $equipe="SELECT idcommande as 'Numéro Commande', date_commande as 'Date Commande', date_livraison as 'Date Livraison', status, nom, prenom, adresse FROM commandes c join client cli on cli.idclient = c.IDclient";   
     }
     try {
       $statement=$pdo->query($equipe);

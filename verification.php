@@ -26,7 +26,7 @@ function afficheDataTable($data) {
 if(isset($_POST['username']) && isset($_POST['password'])){
     $username=$_POST["username"];
     $password=$_POST["password"];
-    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
+    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
     try{
         $requete="SELECT count(*) FROM `utilisateurs` WHERE motDePasse='".$password."' and username='".$username."'";
         $statement=$pdo->query($requete)-> fetchColumn();
