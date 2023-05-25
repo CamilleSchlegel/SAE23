@@ -22,6 +22,9 @@
     <div id="body">
     <div>
     <form action='' method='get'> Recherche: <input type='text' name='searchBar'/> <input type='submit' value='Rechercher'/> </form>
+    <select title="Résultats triés par:">
+      <option>Date de commande</option>
+    </select> 
     </div>
     <?php
      function afficheDataTable($data) {

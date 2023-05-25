@@ -8,6 +8,7 @@
 <body>
     <div id="left">
     <div id="DivTitre">
+        <div id="logo"></div>
     <h1>Site de colis</h1>
 </div>
 <hr>

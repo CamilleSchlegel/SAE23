@@ -27,8 +27,8 @@ body{
 }
 h1{
     font-family: "Inter",sans-serif;
-    margin-top: 20px;
     font-size: 3rem;  
+    margin-left: 10px;
 }
 h2{
     font-family: "Inter",sans-serif;
@@ -77,4 +77,21 @@ form{
 p{
     color: #af44f2;
     margin-bottom: 5px;
+}
+#DivTitre {
+    display: flex;
+    justify-content: center;
+    max-height: 80px;
+    width: 70%;
+    align-items: center;
+}
+#logo{
+    background-image: url("../images/logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff835;
+    width: 10%;
+    height: 70%;
+    
 }
