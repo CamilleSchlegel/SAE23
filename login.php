@@ -24,10 +24,12 @@
             $req->execute();
             $res = $req->fetch(PDO::FETCH_GROUP);
             if ($res == NULL){
-                echo "<p>erreur</p>";
+                echo "<p>Login ou mot de passe incorrect.</p>";
             }
             else{
-                echo "<p>succès</p>";
+                session_start();
+                $_SESSION['username'] = $_POST['username'];
+                echo "<script>location.href = 'home.php';</script>";
             }
             ?>
         <div id="formulaire">
