@@ -14,23 +14,29 @@
             <div>
             <h2>Bienvenue</h2>
         </div>
+        <?php
+            $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
+            //$sql = "INSERT INTO users (login,password) VALUES(:username,:password)";
+            $sql = "select * from users where login= :username and password= :password ";
+            $req = $pdo->prepare($sql);
+            $req->bindParam(':username', $_POST['username']);
+            $req->bindParam(':password', md5($_POST['password']));
+            $req->execute();
+            $res = $req->fetch(PDO::FETCH_GROUP);
+            if ($res == NULL){
+                echo "<p>erreur</p>";
+            }
+            else{
+                echo "<p>succès</p>";
+            }
+            ?>
         <div id="formulaire">
-            <form action="verification.php" method="post" name="login">
-                <div class="formulaireBlock"><p>Email</p><input type="email" name="username"></div>
-                <div class="formulaireBlock"><p>Mot de passe</p><input type="password" name="password" ></div>
-                <div class="formulaireBlock"><button type="submit" value="Connexion" name="submit">Se connecter</button></div>
+            <form action="" method="post" name="login">
+                <div class="formulaireBlock"><input type="email" name="username" placeholder="Adresse e-mail"></div>
+                <div class="formulaireBlock"><input type="password" name="password" placeholder="Mot de passe"></div>
+                <div class="formulaireBlock"><button type="submit" value="Connexion" name="submit">Connexion</button></div>
             </form>
 </div>
-            <?php 
-            if (isset($_GET['erreur'])){
-                ?>
-                <div>
-                
-                <span>Il y a un problème</span>
-            </div>
-            
-        <?php }  
-            ?>
         </div>
     <div id="right">
         <img src="colis.jpg" alt="colis">
