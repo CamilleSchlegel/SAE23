@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Inter";
-    src: url("Inter-Bold.ttf");
+    src: url("../Inter-Bold.ttf");
 }
 
 #main{
@@ -10,11 +10,13 @@
     align-items: center;
 }
 body{
-    height: 100%;
-    display: flex;
+    max-height: 100vh;
+    display: grid;
     padding: 0;
     margin: 0;
     font-family: "Inter",sans-serif;
+    grid-template-rows:  100vh 100vh;
+    grid-template-columns: 1fr 1fr;
 }
 #formulaire{
     display: flex;
@@ -25,44 +27,39 @@ body{
 }
 h1{
     font-family: "Inter",sans-serif;
-    color: #7451eb;
-    margin-top: 20px; 
+    margin-top: 20px;
     font-size: 3rem;  
 }
 h2{
     font-family: "Inter",sans-serif;
     font-size: 2rem;
     padding-top: 30px;
+    color: #2d0f51;
 }
 .formulaireBlock{
     margin:20px;
 }
 #left{
-    width: 50%;
-    margin: auto;
+    margin-top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 20%;
+  
 }
 #right{
-    width: 50%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    background-image: url("../images/colis.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #fff835;
     }
-#right img{
-    padding: auto;
-    width: 100%;
-    height: 100%;
-}
 hr{
     width: 100%;
 }
 button{
     color: aliceblue;
-    background-color: #7451eb;
+    background-color: #6600a5;
     border-radius: 7px;
     width: 100%;
     min-height: 35px;
@@ -78,6 +75,6 @@ form{
     height: 100%;
 }
 p{
-    color: blueviolet;
+    color: #af44f2;
     margin-bottom: 5px;
 }
