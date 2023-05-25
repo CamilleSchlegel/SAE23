@@ -20,11 +20,25 @@
   </div>
     </div>
     <div id="body">
-    <div>
-    <form action='' method='get'> Recherche: <input type='text' name='searchBar'/> <input type='submit' value='Rechercher'/> </form>
-    <select title="Résultats triés par:">
+    <div id="search">
+    <form action='' method='get'> <input type='text' name='searchBar' placeholder="Rechercher"/> <button type='submit'><img src="images/loupe.svg"></button></form>
+    </div>
+    <div id="filtre">
+    <span>Résultats triés par:</span>
+    <select title="Résultats triés par" id="trie">
+    <option>Par défaut</options>
       <option>Date de commande</option>
+      <option>Nom alphabétique</option>
+      <option>Nom non-alphabétique</option>
+      <option>Prénom alphabétique</option>
+      <option>Prénom non-alphabétique</option>
     </select> 
+    <span id="spanStatus">Status:</span>
+    <select id="status">
+      <option>Tout</options>
+      <option>En cours de livraison</options>
+      <option>Livré</options>
+    </select>
     </div>
     <?php
      function afficheDataTable($data) {
