@@ -64,6 +64,11 @@
         printf("ERREUR : %s !!!\n",$e->getMessage());
       }
       ?>
+
+      <form method="POST" action="carte.php">
+        <input type="hidden" name="idcommande" value="1">
+        <input type="submit">
+      </form>
   <?php else: header ("Location: login.php");
   endif;?>
  
