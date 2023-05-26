@@ -17,6 +17,8 @@
       <div id="titre">
         <h1>Site de colis</h1>
     </div>
+    <div id="retours"><span id="commentaire">"C'est incroyable"</span><span id="auteur">Camille Schlegel</span>
+    </div>
     <div id="logout"> <a href="logout.php?logout=true"><span id="deconnexionSpan">Déconnexion</span> </a>
   </div>
     </div>
@@ -97,6 +99,7 @@
       }
       ?>
     <script>
+      $(document).ready(function() {
       $("input").click(function(){
 
         $("form").addClass("formClick").css({
@@ -113,7 +116,30 @@
           });
         }
       });
-       
+      var divCommentaire=$("#commentaire");
+      var divAuteur=$("#auteur");
+      function defileTexte() {
+    divCommentaire.animate({ marginLeft: "200%" }, 1000, function() {
+      $(this).text(message[compteur][0]).css("marginLeft", "-15%").animate({ marginLeft: "0%" }, 1000);
+    });
+    divAuteur.animate({ marginLeft: "200%" }, 1000, function() {
+      $(this).text(message[compteur][1]).css("marginLeft", "-15%").animate({ marginLeft: "0%" }, 1000);
+    });
+  }
+      
+      
+      var compteur=0;
+      var message=[["Wow, j'ai jamais vu une telle livraison sdjfhjsdf jksjdfk jskdjf sqjdf hdqsj fqsdkjf ksqdjkf jsqkdjfk","Camille Schlegel"], ["Ce site de colis est incroyable","Robin Semene"],["Je recommende","Jonathan Schlegel"]];
+      setInterval(function(){ 
+        defileTexte();
+        setTimeout(function() {
+          divCommentaire.text(message[compteur][0]);
+          divAuteur.text(message[compteur][1]);
+          compteur=(compteur+1)%message.length;
+        },2000);
+  }, 10000);
+});
+
     </script>
   <?php else: header ("Location: login.php");
   endif;?>
