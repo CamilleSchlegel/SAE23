@@ -23,8 +23,12 @@
                 <div class="formulaireBlock"><button type="submit" value="Connexion" name="submit">Connexion</button></div>
             </form>
 </div>
+<?php
+    include_once("footer.html")
+    ?>
         </div>
     <div id="right">
     </div>
 </body>
+
 </html>

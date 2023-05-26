@@ -14,6 +14,11 @@
     justify-content: flex-end;
     align-items: center;
 }
+html{
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
 body{
     padding: 0;
     margin: 0;
@@ -22,6 +27,10 @@ body{
     justify-content: center;
     align-items: center;
     font-family: "Inter";
+    height: 100%;
+}
+#body{
+    width: 70%;
 }
 #logout span{
     color: white;
@@ -82,19 +91,19 @@ a{
     
 }
 table{
-    box-shadow: 0 0 5px #9b9b9b;
+    box-shadow: 0 0 5px  #9b9b9b;
     border-collapse: collapse;
+    border-top: none;
+    margin-top: 20px;
 }
 #filtre{
     display: flex;
     margin-top: 10px;
-    margin-bottom: 10px;
-}
-#trie{
-    margin-left: 0;
-}
-#status{
-    margin-left: 0;
+    box-shadow: 0 5px 5px -5px #9b9b9b;
+    min-height: 50px;
+    border: #9b9b9b 1px solid;
+    align-items: center;
+    
 }
 #spanStatus{
     margin-left: 20%;
@@ -120,12 +129,33 @@ button img{
 }
 form{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 35px;
+    width: max-content;
+    padding: 2px;
 }
 input{
     height: inherit;
     border: none;
     background-color: #f6f6f6;
+}
+input:focus{
+    outline: none;
+}
+#spanResultat{
+    margin-left: 10px;
+}
+select{
+    margin-left: 5px;
+    border: none;
+}
+footer{
+    margin-top:auto;
+    height: 50px;
+    background-color: #2d0f51;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }

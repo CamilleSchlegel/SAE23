@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="css/home.css">
+    <script src="jquery-3.6.0.min.js"></script>
 </head>
 <body>
   
@@ -24,7 +25,7 @@
     <form action='' method='get'> <input type='text' name='searchBar' placeholder="Rechercher"/> <button type='submit'><img src="images/loupe.svg"></button></form>
     </div>
     <div id="filtre">
-    <span>Résultats triés par:</span>
+    <span id="spanResultat">Résultats triés par:</span>
     <select title="Résultats triés par" id="trie">
     <option>Par défaut</options>
       <option>Date de commande</option>
@@ -95,9 +96,34 @@
         printf("ERREUR : %s !!!\n",$e->getMessage());
       }
       ?>
+    <script>
+      $("input").click(function(){
+
+        $("form").addClass("formClick").css({
+          "border": "#ffd61e 2px solid",
+          "border-radius": "4px"});
+      });
+      /*chatgpt*/
+      $(document).click(function(event) {
+        var target = $(event.target);
+        if (!target.closest("form").length) {
+          $("form").removeClass("formClick").css({
+            "border": "",
+            "border-radius": ""
+          });
+        }
+      });
+       
+    </script>
   <?php else: header ("Location: login.php");
   endif;?>
  
 </div>
+<?php
+  include_once("footer.html")
+  ?>
 </body>
+
+  
+
 </html>

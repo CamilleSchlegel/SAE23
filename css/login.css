@@ -44,6 +44,7 @@ h2{
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100%;
   
 }
 #right{
@@ -76,10 +77,6 @@ form{
     width: 100%;
     height: 100%;
 }
-p{
-    color: #af44f2;
-    margin-bottom: 5px;
-}
 #DivTitre {
     display: flex;
     justify-content: center;
@@ -96,4 +93,14 @@ p{
     width: 10%;
     height: 70%;
     
+}
+footer{
+    margin-top:auto;
+    height: 50px;
+    background-color: #2d0f51;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
 }
