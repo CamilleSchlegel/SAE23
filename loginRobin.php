@@ -23,7 +23,7 @@
             $req->bindParam(':username', $_POST['username']);
             $req->bindParam(':password', md5($_POST['password']));
             $req->execute();
-            $res = $req->fetch(PDO::FETCH_GROUP);
+            $res = $req->fetch(PDO::FETCH_ASSOC);
             if ($res == NULL){
                 echo "<p>Login ou mot de passe incorrect.</p>";
             }
