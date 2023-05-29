@@ -16,7 +16,7 @@
     
     if (isset($_GET["date"]) && isset($_GET["surname"]) && isset($_GET["name"])){
         $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
-        $sql = "INSERT INTO SAE23 (Nom,Prénom,Date_de_livraison) VALUES('".$_GET["name"]."','".$_GET["surname"]."','".$_GET["date"]."')";
+        $sql = "INSERT INTO commandes (IDclient,date_livraison) VALUES('".$_GET["name"]."','".$_GET["date"]."')";
         $pdo->exec($sql);
     }
     ?>
