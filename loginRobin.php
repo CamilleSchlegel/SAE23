@@ -15,6 +15,7 @@
             <h2>Bienvenue</h2>
         </div>
         <?php
+        if(isset($_POST['username'])){
             $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
             //$sql = "INSERT INTO users (login,password) VALUES(:username,:password)";
             $sql = "select * from users where login= :username and password= :password ";
@@ -22,7 +23,7 @@
             $req->bindParam(':username', $_POST['username']);
             $req->bindParam(':password', md5($_POST['password']));
             $req->execute();
-            $res = $req->fetch(PDO::FETCH_GROUP);
+            $res = $req->fetch(PDO::FETCH_ASSOC);
             if ($res == NULL){
                 echo "<p>Login ou mot de passe incorrect.</p>";
             }
@@ -31,6 +32,7 @@
                 $_SESSION['username'] = $_POST['username'];
                 echo "<script>location.href = 'home.php';</script>";
             }
+        }
             ?>
         <div id="formulaire">
             <form action="" method="post" name="login">
