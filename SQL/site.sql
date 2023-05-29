@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1deb5ubuntu1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : db
--- Généré le : mar. 23 mai 2023 à 15:35
--- Version du serveur : 8.0.1-dmr
--- Version de PHP : 8.1.17
+-- Hôte : localhost:3306
+-- Généré le : lun. 29 mai 2023 à 21:08
+-- Version du serveur : 8.0.33-0ubuntu0.22.04.2
+-- Version de PHP : 8.1.2-1ubuntu2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,14 +28,14 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `client` (
-  `idclient` int(8) NOT NULL,
+  `idclient` int NOT NULL,
   `nom` varchar(16) NOT NULL,
   `prenom` varchar(16) NOT NULL,
   `adresse` varchar(64) NOT NULL,
   `longitude` float NOT NULL,
   `latitude` float NOT NULL,
-  `code_postal` int(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `code_postal` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `client`
@@ -51,12 +51,12 @@ INSERT INTO `client` (`idclient`, `nom`, `prenom`, `adresse`, `longitude`, `lati
 --
 
 CREATE TABLE `commandes` (
-  `idcommande` int(11) NOT NULL,
-  `idclient` int(11) NOT NULL,
+  `idcommande` int NOT NULL,
+  `idclient` int NOT NULL,
   `status` varchar(24) NOT NULL DEFAULT 'Commandé',
   `date_commande` date NOT NULL,
   `date_livraison` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `commandes`
@@ -65,18 +65,6 @@ CREATE TABLE `commandes` (
 INSERT INTO `commandes` (`idcommande`, `idclient`, `status`, `date_commande`, `date_livraison`) VALUES
 (1, 1, 'Livré', '2023-05-23', '2023-05-23');
 
---
--- Déclencheurs `commandes`
---
-DELIMITER $$
-CREATE TRIGGER `tr_update_livraison` BEFORE UPDATE ON `commandes` FOR EACH ROW BEGIN
-    IF new.status = 'Livré' AND old.status <> 'Livré' THEN
-        SET new.date_livraison = CURRENT_DATE;
-    END IF;
-END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -84,54 +72,38 @@ DELIMITER ;
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `login` varchar(64) NOT NULL,
-  `password` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` int NOT NULL,
+  `login` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `login`, `password`) VALUES
+(1, 'michel@gmail.com', '098f6bcd4621d373cade4e832627b4f6');
 
 --
 -- Index pour les tables déchargées
 --
 
 --
--- Index pour la table `client`
---
-ALTER TABLE `client`
-  ADD PRIMARY KEY (`idclient`);
-
---
--- Index pour la table `commandes`
---
-ALTER TABLE `commandes`
-  ADD PRIMARY KEY (`idcommande`);
-
---
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `login` (`login`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `client`
---
-ALTER TABLE `client`
-  MODIFY `idclient` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT pour la table `commandes`
---
-ALTER TABLE `commandes`
-  MODIFY `idcommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
