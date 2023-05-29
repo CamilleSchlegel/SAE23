@@ -1,4 +1,5 @@
 <?php
+
 ini_set('display_errors', 1);
 
 if(isset($_POST['idcommande'])){
@@ -30,3 +31,34 @@ function afficheDataTable($data) {
 }
 ?>
 
+<html>
+    <head>
+    <link rel="stylesheet" href="css/visualisation.css">
+    <link rel="stylesheet" href="leaflet-1.7.1/leaflet.css"/>
+</head>
+<body>
+<span id="GPS"></span>
+  <div class="flex">
+    <div id="map" class="box"></div>
+  </div>
+</body>
+
+<script src="leaflet-1.7.1/leaflet.js"></script>
+<script type="text/javascript">
+    var map = null;
+function initMap() {
+    let mapOptions={center: [<?php echo $res["latitude"] ?>,<?php echo $res["longitude"] ?>], zoom: 11};
+    let layerOptions={attribution: '(c) OpenStreetMap France', minZoom: 1, maxZoom: 20};
+    map = new L.map('map',mapOptions);
+    let layer=new L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',layerOptions);
+    let marker = new L.Marker([<?php echo $res["latitude"] ?>,<?php echo $res["longitude"] ?>]);
+    L.control.scale().addTo(map);
+    marker.bindPopup("Point de livraison");
+    marker.addTo(map);
+    map.addLayer(layer);
+  }
+
+window.onload=function(){
+    initMap();
+};
+</script>
