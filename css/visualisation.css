@@ -2,7 +2,7 @@ body{
     background-color:white;
     text-align:center;
   }
-  .box{width:500px;height:400px;}
+  .box{width:60vw;height:60vh;}
   div.flex{display:flex;align-items:center;justify-content:center;}
   .btn{display:inline-block;margin-bottom:0;font-weight:400;text-align:center;white-space:nowrap;vertical-align:middle;cursor:pointer;background-image:none;border:1px solid transparent;padding:6px 12px;font-size:14px;line-height:1.42857143;border-radius:4px;}
   
