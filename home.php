@@ -94,6 +94,14 @@
     if (isset($_GET['searchBar']) && $_GET['searchBar']!= NULL){
         $equipe= $equipe . " where nom like '". $_GET['searchBar']. "' or prenom like '". $_GET['searchBar']."'";
     }
+    if(isset($_GET['status']) && $_GET['status']!="Tout"){
+      if (isset($_GET['searchBar']) && $_GET['searchBar']!= NULL){
+        $equipe = $equipe. " and status = '".$_GET['status']."'";
+      }
+      else{
+        $equipe = $equipe. " where status ='".$_GET['status']."'";
+      }
+    }
     if(isset($_GET['tri']) && $_GET['tri']!="Par défaut"){
       $equipe = $equipe . " order by ". $link[$_GET['tri']];
     }
