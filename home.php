@@ -24,11 +24,11 @@
     </div>
     <div id="body">
     <div id="search">
-    <form action='' method='get'> <input type='text' name='searchBar' placeholder="Rechercher"/> <button type='submit'><img src="images/loupe.svg"></button></form>
+    <form action='' method='get'> <input type='text' name='searchBar' placeholder="Rechercher"/> <button type='submit'><img src="images/loupe.svg"></button>
     </div>
     <div id="filtre">
     <span id="spanResultat">Résultats triés par:</span>
-    <select title="Résultats triés par" id="trie">
+    <select title="Résultats triés par" id="trie" name='tri'>
     <option>Par défaut</options>
       <option>Date de commande</option>
       <option>Nom alphabétique</option>
@@ -37,13 +37,21 @@
       <option>Prénom non-alphabétique</option>
     </select> 
     <span id="spanStatus">Status:</span>
-    <select id="status">
+    <select id="status" name='status'>
       <option>Tout</options>
       <option>En cours de livraison</options>
       <option>Livré</options>
     </select>
+    </form>
     </div>
     <?php
+    $link = array(
+      "Date de commande" => " date_commande",
+      "Nom alphabétique" => " nom",
+      "Nom non-alphabétique" => " nom desc",
+      "Prénom alphabétique" => " prenom",
+      "Prénom non-alphabétique" => " prenom desc"
+    );
      function afficheDataTable($data) {
       $color=0;
         if (is_array($data)) {
@@ -79,14 +87,15 @@
         }
       }
     
-    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
-    
-    if (isset($_GET['searchBar'])){
-        $get=$_GET['searchBar'];
-        $equipe="SELECT * FROM commandes";
+    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
 
-    } else {
-        $equipe="SELECT * FROM commandes c join clients cli on cli.ID= c.IDclient";   
+    $equipe="SELECT idcommande as 'Numéro commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join client cli on cli.idclient = c.IDclient";
+    
+    if (isset($_GET['searchBar']) && $_GET['searchBar']!= NULL){
+        $equipe= $equipe . " where nom like '". $_GET['searchBar']. "' or prenom like '". $_GET['searchBar']."'";
+    }
+    if(isset($_GET['tri']) && $_GET['tri']!="Par défaut"){
+      $equipe = $equipe . " order by ". $link[$_GET['tri']];
     }
     try {
       $statement=$pdo->query($equipe);
