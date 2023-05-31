@@ -4,7 +4,7 @@ if (isset($_GET["logout"])){
     if ($_GET["logout"]==true){
         session_destroy();
         session_unset();
-        header("Location:login.php");
+        header("Location:loginRobin.php");
     }
 }
 ?>
