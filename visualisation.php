@@ -3,8 +3,8 @@
 ini_set('display_errors', 1);
 
 if(isset($_POST['idcommande'])){
-    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
-    $sql = "select * from commandes c join client cli on cli.idclient = c.idclient where idcommande = :idcommande";
+    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
+    $sql = "select * from commandes c join clients cli on cli.client = c.IDclient where ID = :idcommande";
     $req = $pdo->prepare($sql);
     $req->bindParam(':idcommande', $_POST['idcommande']);
     $req->execute();

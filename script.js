@@ -27,31 +27,43 @@ $(document).ready(function() {
 }
 $("select").select2();
 
-$('#trie').on('select2:open', function() {
-  $('.select2-results__option').mouseenter(function() {
-    console.log("cc")
-  }).mouseleave(function() {
-    // Code lorsque la souris quitte les options
-    console.log("aurevoir")
-  });
-}).on('select2:closing', function() {
-  $('.select2-results__option').off('mouseenter mouseleave');
-});
-$("#header").hover(
-function() {
-  console.log("cc")
-  $(this).css({
-    "background-color": "#6600a5",
-    "color": "aliceblue"
-  });
-},
-function() {
-  $(this).css({
-    "background-color": "",
-    "color": ""
-  });
+function formatOption(option) {
+  if (!option.id) {
+    return option.text;
+  }
+
+  var color = 'green'; // Définissez la couleur souhaitée ici
+  var backgroundColor = 'black';
+
+  // Utilisez la balise <span> avec une classe CSS pour appliquer la couleur
+  return $('<span style="color:' + color + '; background-color:' + backgroundColor + '; width: 100%; display:block;">' + option.text + '</span>');
 }
-); 
+
+// Appliquer la fonction de formatage à Select2
+$('select').select2({
+  templateResult: formatOption,
+  templateSelection: formatOption
+});
+ 
+$('#changePage>a').hover(
+  function() {
+    $("#"+$(this).attr("id")+"").css('transform', 'scale(1.2)'); // Taille de police agrandie
+  },
+  function() {
+    $("#changePage>a").css('transform', 'scale(1)'); // Taille de police initiale
+  }
+);
+$('#header>#logout>a').hover(
+  function() {
+    $("#deconnexionSpan").css('transform', 'scale(1.2)'); // Taille de police agrandie
+  },
+  function() {
+    $("#deconnexionSpan").css('transform', 'scale(1)'); // Taille de police initiale
+  }
+);
+
+
+
     var compteur=0;
     var message=[["Wow, j'ai jamais vu une telle livraison sdjfhjsdf jksjdfk jskdjf sqjdf hdqsj fqsdkjf ksqdjkf jsqkdjfk","Camille Schlegel"], ["Ce site de colis est incroyable","Robin Semene"],["Je recommende","Jonathan Schlegel"]];
     setInterval(function(){ 
