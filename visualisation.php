@@ -19,7 +19,7 @@ if(isset($_POST['idcommande'])){
     afficheDataTable($res);
 }
 else{
-    echo "<h2> La commande recherchée n'existe pas ou a été supprimée</p>";
+    echo "<h2> La commande recherchée n'existe pas ou a été supprimée</h2>";
 }
 
 function afficheDataTable($data) {
