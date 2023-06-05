@@ -60,6 +60,7 @@
           foreach (array_keys(current($data)) as $i=>$colName) {
             printf("<th>%s</th>",$colName);
           }
+          printf("<th> Carte </th>");
             printf("</tr>\n");
           
           foreach ($data as $i=>$row) {
@@ -68,7 +69,6 @@
               foreach ($row as $key=>$val) {
                 printf("<td>%s</td>",$val);
               }
-              printf("</tr>\n");
               $color=1;
           }
           else{
@@ -76,10 +76,13 @@
               foreach ($row as $key=>$val) {
                 printf("<td>%s</td>",$val);
               }
-              printf("</tr>\n");
               $color=0;
 
           }
+          echo '<td><form action="visualisation.php" method="post">
+          <input type="hidden" value="'.$row['Numéro commande'].'" name="idcommande">
+          <input type="submit" value="Voir Carte"></input>
+      </form></td></tr>';
         }
           printf("</table>\n");
         } else {

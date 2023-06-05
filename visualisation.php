@@ -27,7 +27,7 @@ function afficheDataTable($data) {
     echo "<table>";
     echo "<tr class='head'>";
     foreach($data2 as $value){
-        echo "<td><b>".$value."</b></td>";
+        echo "<th><b>".$value."</b></th>";
     }
     echo "</tr><tr>";
     foreach($data as $value){
