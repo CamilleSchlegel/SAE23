@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Connexion</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
     <div id="left">
@@ -16,9 +16,9 @@
         </div>
         <?php
         if(isset($_POST['username'])){
-            $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_schlegel_1','22201642','329873');
+            $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
             //$sql = "INSERT INTO users (login,password) VALUES(:username,:password)";
-            $sql = "select * from users where username= :username and password= :password ";
+            $sql = "select * from users where login= :username and password= :password ";
             $req = $pdo->prepare($sql);
             $req->bindParam(':username', $_POST['username']);
             $req->bindParam(':password', md5($_POST['password']));
@@ -30,7 +30,7 @@
             else{
                 session_start();
                 $_SESSION['username'] = $_POST['username'];
-                echo "<script>location.href = 'index.php';</script>";
+                echo "<script>location.href = 'home.php';</script>";
             }
         }
             ?>
