@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="css/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -90,9 +91,17 @@
         }
       }
     
-    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
+    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_schlegel_1 ','22201642','xd');
+    
+    $perPage=20;
+    $currentPage=(int)($_GET["page"] ?? 1);
+    if ($currentPage <=0){
+      $currentPage=1;
+    }
+    $offset=($currentPage-1)*$perPage;
 
-    $equipe="SELECT idcommande as 'Numéro commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join client cli on cli.idclient = c.IDclient";
+    $equipe="SELECT idcommande as 'Numéro commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join client cli on cli.idclient = c.IDclient LIMIT $perPage offset $offset";
+
     
     if (isset($_GET['searchBar']) && $_GET['searchBar']!= NULL){
         $equipe= $equipe . " where nom like '". $_GET['searchBar']. "' or prenom like '". $_GET['searchBar']."'";
