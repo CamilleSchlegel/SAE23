@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 1);
 function afficheDataTable($data) {
     $data2 = array_keys($data);
     echo "<table>";
@@ -21,16 +22,21 @@ if($_POST['date_commande']!=NULL||$_POST['idclient']!=NULL||$_POST['date_livrais
         $sql3 = $sql3." idclient =".$_POST['idclient'];
     }
     if($_POST['date_commande']!=NULL){
-        $sql3 = $sql3." date_commande =".$_POST['date_commande'];
+        $date1 = strtotime($_POST["date_commande"]);
+        $date1 = date('Y-m-d', $date1);
+        $sql3 = $sql3." date_commande ='".$date1."'";
     }
     if($_POST['date_livraison']!=NULL){
-        $sql3 = $sql3." date_livraison =".$_POST['date_livraison'];
+        $date2 = strtotime($_POST["date_livraison"]);
+        $date2 = date('Y-m-d', $date2);
+        $sql3 = $sql3." date_livraison ='".$date2."'";
     }
     if($_POST['status']!=NULL){
         $sql3 = $sql3." status =".$_POST['status'];
     }
     $sql3 = $sql3." where idcommande =".$_POST['idcommande'];
-    echo $sql3;
+    $pdoS = new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
+    $pdoS->query($sql3);
 }
 if(isset($_POST['idcommande'])){
     $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
@@ -87,7 +93,7 @@ else{
             </input>
             </td>
             <td>
-                <input type="hidden" value='<?php echo $_POST['idcommande']; ?>'>
+                <input type="hidden" value='<?php echo $_POST['idcommande']; ?>' name='idcommande'>
                 <input type="submit" value="modifier table">
             </td>
         </tr>
