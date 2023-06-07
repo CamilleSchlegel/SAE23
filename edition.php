@@ -1,5 +1,4 @@
 <?php
-ini_set('display_errors', 1);
 function afficheDataTable($data) {
     $data2 = array_keys($data);
     echo "<table>";

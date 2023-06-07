@@ -60,7 +60,7 @@
           foreach (array_keys(current($data)) as $i=>$colName) {
             printf("<th>%s</th>",$colName);
           }
-          printf("<th> Carte </th>");
+          printf("<th> Carte </th><th>Edition</th>");
             printf("</tr>\n");
           
           foreach ($data as $i=>$row) {
@@ -82,7 +82,12 @@
           echo '<td><form action="visualisation.php" method="post">
           <input type="hidden" value="'.$row['Numéro commande'].'" name="idcommande">
           <input type="submit" value="Voir Carte"></input>
-      </form></td></tr>';
+      </form></td>
+      <td><form action="edition.php" method="post">
+          <input type="hidden" value="'.$row['Numéro commande'].'" name="idcommande">
+          <input type="submit" value="Editer"></input>
+      </form></td>
+      </tr>';
         }
           printf("</table>\n");
         } else {
