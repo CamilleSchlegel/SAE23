@@ -17,3 +17,20 @@ body{
   
   .btn-danger{color:#fff;background-color:#d9534f;border-color:#d43f3a}
   .btn-danger:hover{color:#fff;background-color:#c9302c;border-color:#ac2925}
+
+  #header{
+    min-height: 70px;
+    width: 80%;
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr 1fr 0.5fr ;
+    background-color: #fff835;
+    overflow: hidden;
+}
+#logout{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.flex{
+  margin-bottom: 20px;
+}

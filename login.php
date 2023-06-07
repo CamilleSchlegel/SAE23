@@ -8,27 +8,43 @@
 <body>
     <div id="left">
     <div id="DivTitre">
-        <div id="logo"></div>
     <h1>Site de colis</h1>
 </div>
 <hr>
             <div>
             <h2>Bienvenue</h2>
         </div>
-        
+        <?php session_start(); ?>
+        <?php
+        if(isset($_POST['username'])){
+            $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
+            //$sql = "INSERT INTO users (login,password) VALUES(:username,:password)";
+            $sql = "select * from users where username= :username and password= :password ";
+            $req = $pdo->prepare($sql);
+            $req->bindParam(':username', $_POST['username']);
+            $req->bindParam(':password', md5($_POST['password']));
+            $req->execute();
+            $res = $req->fetch(PDO::FETCH_ASSOC);
+            if ($res == NULL){
+                echo "<p>Login ou mot de passe incorrect.</p>";
+            }
+            else{
+                session_start();
+                $_SESSION['username'] = $_POST['username'];
+                echo "<script>location.href = 'index.php';</script>";
+            }
+        }
+            ?>
         <div id="formulaire">
-            <form action="verification.php" method="post" name="login">
+            <form action="" method="post" name="login">
                 <div class="formulaireBlock"><input type="email" name="username" placeholder="Adresse e-mail"></div>
                 <div class="formulaireBlock"><input type="password" name="password" placeholder="Mot de passe"></div>
                 <div class="formulaireBlock"><button type="submit" value="Connexion" name="submit">Connexion</button></div>
             </form>
 </div>
-<?php
-    include_once("footer.html")
-    ?>
         </div>
     <div id="right">
+       
     </div>
 </body>
-
 </html>

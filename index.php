@@ -1,11 +1,10 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" href="css/home.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
   
@@ -13,15 +12,9 @@
     <?php
     if (isset($_SESSION['username'])): 
        ?>
-    <div id="header">
-      <div id="logo"></div>
-      <div id="titre">
-        <h1>Site de colis</h1>
-    </div>
-    <div id="retours"><span id="commentaire">"C'est incroyable"</span><span id="auteur">Camille Schlegel</span>
-    </div>
-    <div id="logout"> <a href="logout.php?logout=true"><span id="deconnexionSpan">Déconnexion</span> </a>
-  </div>
+    <?php
+  include_once("header.html");
+  ?>
     </div>
     <div id="body">
     <div id="search">
@@ -78,12 +71,17 @@
                 printf("<td>%s</td>",$val);
               }
               $color=0;
-
           }
           echo '<td><form action="visualisation.php" method="post">
-          <input type="hidden" value="'.$row['Numéro commande'].'" name="idcommande">
+          <input type="hidden" value="'.$row['N°commande'].'" name="idcommande">
           <input type="submit" value="Voir Carte"></input>
-      </form></td></tr>';
+          </form></td></tr>
+          <td><form action="edition.php" method="post">
+          <input type="hidden" value="'.$row['N°commande'].'" name="idcommande">
+          <input type="submit" value="Editer"></input>
+      </form></td>
+      </tr>';
+
         }
           printf("</table>\n");
         } else {
@@ -91,18 +89,18 @@
         }
       }
     
-    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_schlegel_1 ','22201642','xd');
+    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
     
-    $perPage=20;
+    $perPage=5;
     $currentPage=(int)($_GET["page"] ?? 1);
     if ($currentPage <=0){
       $currentPage=1;
     }
     $offset=($currentPage-1)*$perPage;
 
-    $equipe="SELECT idcommande as 'Numéro commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join client cli on cli.idclient = c.IDclient LIMIT $perPage offset $offset";
+    $equipe="SELECT idcommande as 'N°commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join clients cli on cli.idclient = c.IDclient LIMIT $perPage offset $offset";
+    $equipeFalse="SELECT idcommande as 'N°commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join clients cli on cli.idclient = c.IDclient";
 
-    
     if (isset($_GET['searchBar']) && $_GET['searchBar']!= NULL){
         $equipe= $equipe . " where nom like '". $_GET['searchBar']. "' or prenom like '". $_GET['searchBar']."'";
     }
@@ -118,6 +116,15 @@
       $equipe = $equipe . " order by ". $link[$_GET['tri']];
     }
     try {
+      $statement=$pdo->query($equipeFalse);
+      $data=$statement->fetchAll(PDO::FETCH_ASSOC);
+      $total = $statement->rowCount();
+      $pages=ceil($total/$perPage);
+      if ($currentPage > $pages){
+        unset($currentPage);
+        throw new Exception("Numéro de page invalide");
+        
+      }
       $statement=$pdo->query($equipe);
       $data=$statement->fetchAll(PDO::FETCH_ASSOC);
       afficheDataTable($data);
@@ -127,58 +134,26 @@
         printf("ERREUR : %s !!!\n",$e->getMessage());
       }
       ?>
-    <script>
-      $(document).ready(function() {
-      $("input").click(function(){
-
-        $("form").addClass("formClick").css({
-          "border": "#ffd61e 2px solid",
-          "border-radius": "4px"});
-      });
-      /*chatgpt*/
-      $(document).click(function(event) {
-        var target = $(event.target);
-        if (!target.closest("form").length) {
-          $("form").removeClass("formClick").css({
-            "border": "",
-            "border-radius": ""
-          });
-        }
-      });
-      var divCommentaire=$("#commentaire");
-      var divAuteur=$("#auteur");
-      function defileTexte() {
-    divCommentaire.animate({ marginLeft: "200%" }, 1000, function() {
-      $(this).text(message[compteur][0]).css("marginLeft", "-15%").animate({ marginLeft: "0%" }, 1000);
-    });
-    divAuteur.animate({ marginLeft: "200%" }, 1000, function() {
-      $(this).text(message[compteur][1]).css("marginLeft", "-15%").animate({ marginLeft: "0%" }, 1000);
-    });
-  }
-      
-      
-      var compteur=0;
-      var message=[["Wow, j'ai jamais vu une telle livraison sdjfhjsdf jksjdfk jskdjf sqjdf hdqsj fqsdkjf ksqdjkf jsqkdjfk","Camille Schlegel"], ["Ce site de colis est incroyable","Robin Semene"],["Je recommende","Jonathan Schlegel"]];
-      setInterval(function(){ 
-        defileTexte();
-        setTimeout(function() {
-          divCommentaire.text(message[compteur][0]);
-          divAuteur.text(message[compteur][1]);
-          compteur=(compteur+1)%message.length;
-        },2000);
-  }, 10000);
-});
-
-    </script>
-  <?php else: header ("Location: login.php");
-  endif;?>
- 
+      <div id="changePage">
+        <?php if (isset($currentPage)): ?>
+      <?php if ($currentPage > 1): ?>
+          <a id ="precedent" href="home.php?page=<?php echo $currentPage-1 ?>"> <span class="buttonChangePage">< Précédente</span></a>
+          <?php   endif; ?>
+        
+          <?php if ($currentPage < $pages): ?>
+          <a id="suivant"href="home.php?page=<?php echo $currentPage+1 ?>"> <span class="buttonChangePage">Suivante ></span></a>
+          <?php   endif; ?>
+          <?php endif; ?>
+    </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="js/index.js"></script>
 <?php
   include_once("footer.html")
   ?>
 </body>
-
-  
-
 </html>
+
+<?php else: header ("Location: login.php");
+  endif;?>
