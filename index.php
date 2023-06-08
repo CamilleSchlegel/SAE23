@@ -18,9 +18,11 @@
     </div>
     <div id="body">
     <div id="search">
-    <form action='' method='get'> <input type='text' name='searchBar' placeholder="Rechercher"/> <button type='submit'><img src="images/loupe.svg"></button>
-    </div>
+    <div><form action='' method='get' id="formSearch"> <input type='text' name='searchBar' placeholder="Rechercher"/> <button type='submit'><img src="images/loupe.svg"></button></div>
+    <a href="ajout.php"><span id="ajoutSpan">Ajouter un colis</span> </a>
+  </div>
     <div id="filtre">
+      <div>
     <span id="spanResultat">Résultats triés par:</span>
     <select title="Résultats triés par" id="trie" name='tri'>
     <option>Par défaut</options>
@@ -30,13 +32,26 @@
       <option>Prénom alphabétique</option>
       <option>Prénom non-alphabétique</option>
     </select> 
+      </div>
+    <div>
     <span id="spanStatus">Status:</span>
     <select id="status" name='status'>
       <option>Tout</options>
       <option>En cours de livraison</options>
       <option>Livré</options>
     </select>
+    </div>
+    <div>
+    <span>Par page:</span>
+    <select id="perPage">
+      <option>Par défaut</option>
+      <option>15</option>
+      <option>10</option>
+      <option>5</option>
+    <select>
+    </div>
     </form>
+    
     </div>
     <?php
     $link = array(
@@ -91,14 +106,20 @@
     
     $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
     
-    $perPage=5;
+    if(isset($_GET['perPage']) && $_GET['tri']!="Par défaut"){
+      $perPage=$_GET['perPage'];
+      echo $perPage;
+    }
+    else{
+      $perPage=5;
+    }
     $currentPage=(int)($_GET["page"] ?? 1);
     if ($currentPage <=0){
       $currentPage=1;
     }
     $offset=($currentPage-1)*$perPage;
 
-    $equipe="SELECT idcommande as 'N°commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join clients cli on cli.idclient = c.IDclient LIMIT $perPage offset $offset";
+    $equipe="SELECT idcommande as 'N°commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join clients cli on cli.idclient = c.IDclient";
     $equipeFalse="SELECT idcommande as 'N°commande', nom, prenom, adresse, code_postal, date_commande as 'Date de commande', date_livraison as 'Date de livraison', status FROM commandes c join clients cli on cli.idclient = c.IDclient";
 
     if (isset($_GET['searchBar']) && $_GET['searchBar']!= NULL){
@@ -115,6 +136,8 @@
     if(isset($_GET['tri']) && $_GET['tri']!="Par défaut"){
       $equipe = $equipe . " order by ". $link[$_GET['tri']];
     }
+    $equipe = $equipe . " LIMIT " . $perPage . " OFFSET " . $offset;
+
     try {
       $statement=$pdo->query($equipeFalse);
       $data=$statement->fetchAll(PDO::FETCH_ASSOC);
@@ -137,11 +160,15 @@
       <div id="changePage">
         <?php if (isset($currentPage)): ?>
       <?php if ($currentPage > 1): ?>
-          <a id ="precedent" href="home.php?page=<?php echo $currentPage-1 ?>"> <span class="buttonChangePage">< Précédente</span></a>
+          <a id ="precedent" href="index.php?page=<?php echo $currentPage-1 ?>"> <span class="buttonChangePage">< Précédente</span></a>
           <?php   endif; ?>
-        
+        <?php if ($pages!==1):?>
+          <div id="page">
+              <?php echo $currentPage ?>-<?php echo $pages ?></span>
+        </div>
+              <?php endif; ?>
           <?php if ($currentPage < $pages): ?>
-          <a id="suivant"href="home.php?page=<?php echo $currentPage+1 ?>"> <span class="buttonChangePage">Suivante ></span></a>
+          <a id="suivant"href="index.php?page=<?php echo $currentPage+1 ?>"> <span class="buttonChangePage">Suivante ></span></a>
           <?php   endif; ?>
           <?php endif; ?>
     </div>

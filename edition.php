@@ -1,3 +1,10 @@
+<html>
+<head>
+<link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+<?php include_once("header.html"); ?>
+
 <?php
 
 function afficheDataTable($data) {
@@ -15,10 +22,10 @@ function afficheDataTable($data) {
 }
 if (isset($_POST['date_commande'])){
     if($_POST['date_commande']!=NULL||$_POST['idclient']!=NULL||$_POST['date_livraison']!=NULL||$_POST['status']!=NULL){
-        $pdo3 = new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
+        $pdo3 = new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
         $sql3 = "update commandes set ";
         if($_POST['idclient']!=NULL){
-            $sql3 = $sql3." idclient =".$_POST['idclient'];
+            $sql3 = $sql3." idclient =".$_POST['idclient'].",";
         }
         if($_POST['date_commande']!=NULL){
             $date1 = strtotime($_POST["date_commande"]);
@@ -28,26 +35,26 @@ if (isset($_POST['date_commande'])){
         if($_POST['date_livraison']!=NULL){
             $date2 = strtotime($_POST["date_livraison"]);
             $date2 = date('Y-m-d', $date2);
-            $sql3 = $sql3." date_livraison ='".$date2."'";
+            $sql3 = $sql3." date_livraison ='".$date2."',";
         }
         if($_POST['status']!=NULL){
-            $sql3 = $sql3." status =".$_POST['status'];
+            $sql3 = $sql3." `status` ='".$_POST['status']."'";
         }
         $sql3 = $sql3." where idcommande =".$_POST['idcommande'];
-        $pdoS = new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
+        $pdoS = new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
         $pdoS->query($sql3);
     }
 }
 if(isset($_POST['idcommande'])){
-    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
-    $sql = "select idcommande as 'Numéro Commande', nom, prenom, adresse, code_postal as 'Code postal', date_commande, date_livraison, status from commandes c join clients cli on cli.idclient = c.idclient where idcommande = :idcommande";
+    $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
+    $sql = "select idcommande as 'Numéro Commande', nom, prenom, adresse, code_postal as 'Code postal', date_commande, date_livraison, status from commandes c join client cli on cli.idclient = c.idclient where idcommande = :idcommande";
     $req = $pdo->prepare($sql);
     $req->bindParam(':idcommande', $_POST['idcommande']);
     $req->execute();
     $res = $req->fetch(PDO::FETCH_ASSOC);
 
-    $pdo2=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
-    $sql2 = "select longitude, latitude from commandes c join clients
+    $pdo2=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
+    $sql2 = "select longitude, latitude from commandes c join client
      cli on cli.idclient = c.idclient where idcommande = :idcommande";
     $req2 = $pdo2->prepare($sql2);
     $req2->bindParam(':idcommande', $_POST['idcommande']);
@@ -61,14 +68,7 @@ else{
 
 
 ?>
-
-<html>
-<head>
-<link rel="stylesheet" href="css/home.css">
-</head>
-<body>
-<?php include_once("header.html"); ?>
-    <table>
+<table>
     <form action='edition.php' method='post'>
         <tr>
             <th class="edition">Destinataire</th>
@@ -104,7 +104,7 @@ else{
 
 <?php include_once("footer.html"); ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script src="js/index.js"></script>
 </body>
 </html>

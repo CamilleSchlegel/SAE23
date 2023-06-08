@@ -1,6 +1,4 @@
-<?php
-    if (isset($_SESSION['username'])): 
-       ?>
+
 <html>
     <head>
     <link rel="stylesheet" href="css/visualisation.css">
@@ -82,5 +80,4 @@ window.onload=function(){
     initMap();
 };
 </script>
-<?php else: header ("Location: login.php");
-  endif;?>
+

@@ -103,11 +103,16 @@ table{
     min-height: 50px;
     border: #9b9b9b 1px solid;
     align-items: center;
-    
+    width: 70%  ;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
 }
-#spanStatus{
-    margin-left: 20%;
+#filtre>div{
+    display: flex;
+    align-items: center;
 }
+
 button{
     background: none;
     background-color: #ffd61e;
@@ -142,9 +147,6 @@ input{
 }
 input:focus{
     outline: none;
-}
-#spanResultat{
-    margin-left: 10px;
 }
 select{
     margin-left: 5px;
@@ -219,4 +221,18 @@ select{
 }
 a:link, a:visited, a:hover, a:active{
         color: black;
+}
+#perPage{
+    margin-right: 0;
+}
+#search{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+#ajoutSpan{
+    padding: 10px;
+    background-color: #2d0f51;
+    color: aliceblue;
 }

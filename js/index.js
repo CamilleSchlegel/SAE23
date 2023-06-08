@@ -1,14 +1,14 @@
 $(document).ready(function() {
     $("input").click(function(){
 
-      $("form").addClass("formClick").css({
+      $("#formSearch").addClass("formClick").css({
         "border": "#ffd61e 2px solid",
         "border-radius": "4px"});
     });
     $(document).click(function(event) {
       var target = $(event.target);
-      if (!target.closest("form").length) {
-        $("form").removeClass("formClick").css({
+      if (!target.closest("#formSearch").length) {
+        $("#formSearch").removeClass("formClick").css({
           "border": "",
           "border-radius": ""
         });
