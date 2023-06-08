@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le : lun. 29 mai 2023 à 21:08
--- Version du serveur : 8.0.33-0ubuntu0.22.04.2
--- Version de PHP : 8.1.2-1ubuntu2.11
+-- Hôte : localhost
+-- Généré le : jeu. 08 juin 2023 à 07:08
+-- Version du serveur : 5.7.35-0ubuntu0.18.04.2
+-- Version de PHP : 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,21 +28,22 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `client` (
-  `idclient` int NOT NULL,
+  `idclient` int(11) NOT NULL,
   `nom` varchar(16) NOT NULL,
   `prenom` varchar(16) NOT NULL,
   `adresse` varchar(64) NOT NULL,
   `longitude` float NOT NULL,
   `latitude` float NOT NULL,
-  `code_postal` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `code_postal` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `client`
 --
 
 INSERT INTO `client` (`idclient`, `nom`, `prenom`, `adresse`, `longitude`, `latitude`, `code_postal`) VALUES
-(1, 'robert', 'equerre', '3 rue des blaireaux', 3.14, 40, 34500);
+(1, 'robert', 'equerre', '3 rue des blaireaux', 3.14, 40, 34500),
+(2, 'michel', 'michel', '4 rue michel', 6.66, -70.543, 404);
 
 -- --------------------------------------------------------
 
@@ -51,19 +52,25 @@ INSERT INTO `client` (`idclient`, `nom`, `prenom`, `adresse`, `longitude`, `lati
 --
 
 CREATE TABLE `commandes` (
-  `idcommande` int NOT NULL,
-  `idclient` int NOT NULL,
+  `idcommande` int(11) NOT NULL,
+  `idclient` int(11) NOT NULL,
   `status` varchar(24) NOT NULL DEFAULT 'Commandé',
   `date_commande` date NOT NULL,
   `date_livraison` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `commandes`
 --
 
 INSERT INTO `commandes` (`idcommande`, `idclient`, `status`, `date_commande`, `date_livraison`) VALUES
-(1, 1, 'Livré', '2023-05-23', '2023-05-23');
+(1, 1, 'Livré', '2023-06-17', '2023-05-23'),
+(2, 1, 'Commandé', '2023-05-02', NULL),
+(3, 2, 'Commandé', '2023-04-04', NULL),
+(7, 7, 'Commandé', '2023-06-27', NULL),
+(8, 7, 'Commandé', '2023-06-27', NULL),
+(9, 7, 'Commandé', '2023-06-27', NULL),
+(10, 7, 'Commandé', '2023-06-27', NULL);
 
 -- --------------------------------------------------------
 
@@ -72,10 +79,10 @@ INSERT INTO `commandes` (`idcommande`, `idclient`, `status`, `date_commande`, `d
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `login` varchar(32) NOT NULL,
   `password` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `users`
@@ -89,6 +96,12 @@ INSERT INTO `users` (`id`, `login`, `password`) VALUES
 --
 
 --
+-- Index pour la table `commandes`
+--
+ALTER TABLE `commandes`
+  ADD PRIMARY KEY (`idcommande`);
+
+--
 -- Index pour la table `users`
 --
 ALTER TABLE `users`
@@ -100,10 +113,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT pour la table `commandes`
+--
+ALTER TABLE `commandes`
+  MODIFY `idcommande` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
