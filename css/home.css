@@ -145,6 +145,10 @@ input{
 input:focus{
     outline: none;
 }
+
+#ajoutSpan{
+    background-color:#5f3804
+}
 #spanResultat{
     margin-left: 10px;
 }

@@ -20,6 +20,7 @@
     <div id="retours"><span id="commentaire">"C'est incroyable"</span><span id="auteur">Camille Schlegel</span>
     </div>
     <div id="logout"> <a href="logout.php?logout=true"><span id="deconnexionSpan">Déconnexion</span> </a>
+    <a href="ajout.php"><span id="ajoutSpan">Ajouter un colis</span> </a>
   </div>
     </div>
     <div id="body">
