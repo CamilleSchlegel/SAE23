@@ -82,7 +82,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `password`) VALUES
-(1, 'michel@gmail.com', '098f6bcd4621d373cade4e832627b4f6');
+(1, 'test@gmail.com', '098f6bcd4621d373cade4e832627b4f6');
 
 --
 -- Index pour les tables déchargées

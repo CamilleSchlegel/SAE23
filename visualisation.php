@@ -2,7 +2,7 @@
 <html>
     <head>
     <link rel="stylesheet" href="css/visualisation.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="leaflet-1.7.1/leaflet.css"/>
 </head>
 
