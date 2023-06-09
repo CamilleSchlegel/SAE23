@@ -17,7 +17,7 @@
         <?php session_start(); ?>
         <?php
         if(isset($_POST['username'])){
-            $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=db_SCHLEGEL_1','22201642','329873');
+            $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
             //$sql = "INSERT INTO users (login,password) VALUES(:username,:password)";
             $sql = "select * from users where username= :username and password= :password ";
             $req = $pdo->prepare($sql);

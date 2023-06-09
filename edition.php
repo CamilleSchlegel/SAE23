@@ -20,7 +20,6 @@ function afficheDataTable($data) {
     }
     echo "</tr></table>";   
 }
-if (isset($_POST['date_commande'])){
     if($_POST['date_commande']!=NULL||$_POST['idclient']!=NULL||$_POST['date_livraison']!=NULL||$_POST['status']!=NULL){
         $pdo3 = new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
         $sql3 = "update commandes set ";
@@ -44,7 +43,6 @@ if (isset($_POST['date_commande'])){
         $pdoS = new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
         $pdoS->query($sql3);
     }
-}
 if(isset($_POST['idcommande'])){
     $pdo=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
     $sql = "select idcommande as 'Numéro Commande', nom, prenom, adresse, code_postal as 'Code postal', date_commande, date_livraison, status from commandes c join client cli on cli.idclient = c.idclient where idcommande = :idcommande";
@@ -52,14 +50,6 @@ if(isset($_POST['idcommande'])){
     $req->bindParam(':idcommande', $_POST['idcommande']);
     $req->execute();
     $res = $req->fetch(PDO::FETCH_ASSOC);
-
-    $pdo2=new PDO('mysql:host=localhost;charset=utf8;dbname=site','test','xd');
-    $sql2 = "select longitude, latitude from commandes c join client
-     cli on cli.idclient = c.idclient where idcommande = :idcommande";
-    $req2 = $pdo2->prepare($sql2);
-    $req2->bindParam(':idcommande', $_POST['idcommande']);
-    $req2->execute();
-    $res2 = $req2->fetch(PDO::FETCH_ASSOC);
     afficheDataTable($res);
 }
 else{
